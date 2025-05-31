@@ -8,24 +8,24 @@ def print_pause(message, delay=2):
 
 
 def intro(wand_color, enemy):
-    print_pause("So, you're standing in this big ol' field with some grass and flowers.")
-    print_pause(f"Word around is there's a {enemy} causing trouble nearby.")
-    print_pause("You see a creepy house right in front of you.")
-    print_pause("And to your right, there's a dark cave. Looks kinda scary.")
-    print_pause(f"Oh, and you're holding a {wand_color} magic wand. Not bad, huh?")
+    print_pause("You find yourself in an open field with grass and flowers.")
+    print_pause(f"People say a {enemy} is nearby causing trouble.")
+    print_pause("In front of you, there is a house.")
+    print_pause("To your right, there is a dark cave.")
+    print_pause(f"You hold a {wand_color} magic wand.")
 
 
 def field(score, wand_color, enemy, turns):
-    print_pause("\nAlright, what do you wanna do?")
-    print_pause("1. Knock on the house door.")
-    print_pause("2. Peek into the cave.")
-    print_pause("Just type 1 or 2, please.")
+    print_pause("\nWhat would you like to do next?")
+    print_pause("1. Knock on the door of the house.")
+    print_pause("2. Look inside the cave.")
+    print_pause("Please enter 1 or 2.")
 
     while True:
         choice = input("> ").strip()
         if choice in ('1', '2'):
             break
-        print_pause("Hey, I said 1 or 2. Try again.")
+        print_pause("Please enter a valid option: 1 or 2.")
 
     if choice == '1':
         house(score, wand_color, enemy, turns)
@@ -34,64 +34,64 @@ def field(score, wand_color, enemy, turns):
 
 
 def cave(score, wand_color, enemy, turns):
-    print_pause("\nYou tiptoe into the cave...")
+    print_pause("\nYou enter the cave carefully.")
     if wand_color == "glowing":
-        print_pause("Nothing new here, you already got the magic wand glowing.")
-        print_pause("Back you go to the field.")
+        print_pause("There is nothing new here. You already have the glowing wand.")
+        print_pause("You return to the field.")
     else:
-        print_pause("Whoa! You found a magic wand! It starts glowing!")
+        print_pause("You find a magic wand inside the cave! It starts glowing.")
         wand_color = "glowing"
         score += 5
-        print_pause(f"Score's up! You're now at {score} points.")
+        print_pause(f"Your score increases to {score}.")
 
     turns += 1
     check_game(score, turns, wand_color, enemy)
 
 
 def house(score, wand_color, enemy, turns):
-    print_pause(f"\nYou walk up to the house and suddenly, a {enemy} jumps out!")
-    print_pause("Looks pretty mad.")
-    print_pause("What now?")
+    print_pause(f"\nYou approach the house. Suddenly, a {enemy} appears!")
+    print_pause("It looks angry.")
+    print_pause("What will you do?")
     print_pause("1. Use your wand to fight.")
-    print_pause("2. Run like heck back to the field.")
+    print_pause("2. Run back to the field.")
 
     while True:
         choice = input("> ").strip()
         if choice in ('1', '2'):
             break
-        print_pause("C'mon, just 1 or 2, please.")
+        print_pause("Please enter a valid option: 1 or 2.")
 
     if choice == '1':
         score = fight(score, wand_color, enemy, turns)
     else:
-        print_pause("You sprint back to the field, heart pounding.")
+        print_pause("You run back to the field.")
         turns += 1
         check_game(score, turns, wand_color, enemy)
 
 
 def fight(score, wand_color, enemy, turns):
-    print_pause(f"\nYou wave your {wand_color} wand and shout a spell...")
+    print_pause(f"\nYou wave your {wand_color} wand and cast a spell...")
     chance = random.randint(1, 10)
 
     success_threshold = 4 if wand_color == "glowing" else 7
 
     if chance > success_threshold:
-        print_pause(f"Bam! The {enemy} freaks out and runs away!")
+        print_pause(f"The {enemy} is scared and runs away!")
         score += 10
-        print_pause(f"Nice one! Score is {score}.")
+        print_pause(f"Your score is now {score}.")
         turns += 1
         check_game(score, turns, wand_color, enemy)
         return score
     else:
-        print_pause(f"Uh-oh! Your spell fizzled. The {enemy} hits you!")
+        print_pause(f"The spell fails. The {enemy} attacks you!")
         score -= 5
-        print_pause(f"Score dropped to {score}.")
+        print_pause(f"Your score drops to {score}.")
 
         if score <= 0:
             game_over(score, False)
         else:
             turns += 1
-            print_pause("You manage to get away back to the field.")
+            print_pause("You escape back to the field.")
             check_game(score, turns, wand_color, enemy)
         return score
 
@@ -115,24 +115,24 @@ def check_game(score, turns, wand_color, enemy):
 
 
 def game_over(score, won):
-    print_pause("\n=== GAME OVER ===")
+    print_pause("\nGAME OVER")
     if won:
-        print_pause(f"Congrats! You won with {score} points!")
+        print_pause(f"Congratulations! You won with {score} points!")
     else:
-        print_pause(f"Sorry, you lost... Final score: {score}")
+        print_pause(f"Sorry, you lost. Your final score is {score}.")
 
-    print_pause("Wanna play again? (y/n)")
+    print_pause("Would you like to play again? (y/n)")
     while True:
         choice = input("> ").strip().lower()
         if choice in ('y', 'n'):
             break
-        print_pause("Please type y or n.")
+        print_pause("Please enter 'y' for yes or 'n' for no.")
 
     if choice == 'y':
-        print_pause("\nOkay, here we go again...\n")
+        print_pause("\nStarting a new game...\n")
         play_game()
     else:
-        print_pause("Thanks for playing! Catch you later.")
+        print_pause("Thank you for playing. Goodbye.")
         exit()
 
 
